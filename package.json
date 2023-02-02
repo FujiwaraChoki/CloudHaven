@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 80",
+    "dev": "npx kill-port 80 && next dev -p 80",
     "build": "next build",
-    "start": "next start -p 80",
+    "start": "npx kill-port 80 && next start -p 80",
     "lint": "next lint"
   },
   "dependencies": {
