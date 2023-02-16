@@ -1,50 +1,47 @@
 import { useState } from "react";
 import styles from "@/styles/UploadForm.module.css";
 import { Inter } from "@next/font/google";
+import Modal from '@/components/Modal'
 
 const inter = Inter({ subsets: ["latin"] });
 
 function UploadForm() {
     const [file, setFile] = useState(null);
+    const [link, setLink] = useState("");
 
     const handleFileChange = (event) => {
         console.log("File change");
         setFile(event.target.files[0]);
     };
 
-    const getBase64FileContent = (file) => {
+    function getFileContent(file) {
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            return reader.result;
-        };
-        reader.onerror = (error) => {
-            console.log("Error: ", error);
 
-            return null;
-        };
-    };
+        reader.readAsDataURL(file);
+
+        return new Promise((resolve) => {
+            reader.onload = () => {
+                resolve(reader.result.split(',')[1]);
+            };
+        });
+    }
 
     const handleFileUpload = () => {
-        const fileInfo = {
-            name: file.name,
-            content: getBase64FileContent(file),
-        }
-
         if (file) {
             // Send file data to server
-            fetch("http://localhost:5000/upload", {
-                method: "POST",
-                body: JSON.stringify({
-                    file_name: fileInfo.name,
-                    file_content: fileInfo.content,
-                }),
-            })
-
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                });
+            getFileContent(file).then((fileContent) => {
+                fetch("http://localhost:5000/upload", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        file_name: file.name,
+                        file_content: fileContent,
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setLink(data.link);
+                    });
+            });
         }
     };
 
@@ -68,7 +65,9 @@ function UploadForm() {
                 className={styles.uploadArea}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                onClick={() => document.querySelector("input[type=file]").click()}
+                onClick={() =>
+                    document.querySelector("input[type=file]").click()
+                }
             >
                 <p className={inter.className}>
                     Drag and drop your file here, or click to select a file.
@@ -76,6 +75,7 @@ function UploadForm() {
                 <input type="file" onChange={handleFileChange} />
             </div>
             <button onClick={handleFileUpload}>Upload</button>
+            {link && <Modal link={link} />}
         </div>
     );
 }
