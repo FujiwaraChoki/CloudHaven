@@ -8,10 +8,12 @@ app = Flask(__name__)
 CORS(app)
 
 def create_link(file_name):
-    return 'http://10.0.0.198:9522/download?file_name=' + file_name
+    return 'http://172.18.0.59:9522/download?file_name=' + file_name
 
 def parse_data(data):
     return json.loads(data.decode())
+
+# de3.bot-hosting.net
 
 def make_response(file_content):
     response = app.response_class(

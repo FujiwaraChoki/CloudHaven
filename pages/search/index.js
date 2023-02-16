@@ -84,7 +84,7 @@ const SearchPage = ({ files }) => {
 } 
 
 export async function getStaticProps() {
-    const response = await fetch('http://10.0.0.198:9522/files');
+    const response = await fetch('http://172.18.0.59:9522/files');
     const data = await response.json();
     const files = data.files;
 

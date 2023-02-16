@@ -38,7 +38,7 @@ function UploadForm() {
         if (file) {
             // Send file data to server
             getFileContent(file).then((fileContent) => {
-                fetch("http://10.0.0.198:9522/upload", {
+                fetch("http://172.18.0.59:9522/upload", {
                     method: "POST",
                     body: JSON.stringify({
                         file_name: urlifyFileName(file.name),
