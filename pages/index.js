@@ -1,29 +1,84 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import common from '../styles/Common.module.css'
-import styles from '../styles/Index.module.css'
-import Navbar from '../components/Navbar'
+import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <div className={common.container}>
+    <>
       <Head>
         <title>CloudHaven</title>
-        <meta name="description" content="CloudHaven" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <meta name="description" content="CloudHaven: The best file sharing service." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
-      <Navbar />
-      <main className={inter.className}>
-        <h1 className={common.title}>CloudHaven</h1>
-        <p className={common.description}>
-        CloudHaven is a user-friendly platform that allows individuals to securely upload and share their files with others. With its intuitive interface and advanced security features, users can easily upload any type of file and share it with anyone, anywhere. Whether you're sharing important work documents, family photos, or just need a convenient place to store your files, CloudHaven has you covered. So why wait? Sign up for CloudHaven today and experience the ultimate in file sharing and storage.
-        </p>
-        <button className={common.button}>Sign Up</button>
+      <main className={styles.main}>
+        <div className={styles.description}>
+          <p>
+            <code className={styles.code}>The best, and most easy-to-use file sharing service!</code>
+          </p>
+          <div>
+            <a
+              href="https://github.com/FujiwaraChoki/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              By FujiwaraChoki
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.center}>
+          <Image
+            src="/favicon.png"
+            alt="Logo"
+            className={styles.logo}
+            width={200}
+            height={200}
+          />
+        </div>
+
+        <div className={styles.grid}>
+          <Link
+            href="upload/"
+            className={styles.card}
+          >
+            <h2 className={inter.className}>
+              Upload <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              Upload a&nbsp;file!
+            </p>
+          </Link>
+
+          <Link
+            href="search/"
+            className={styles.card}
+          >
+            <h2 className={inter.className}>
+              Search <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              Search for publicly available&nbsp;files.
+            </p>
+          </Link>
+
+          <Link
+            href="upload"
+            className={styles.card}
+          >
+            <h2 className={inter.className}>
+              About <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              Find out more about this project and its&nbsp;creator.
+            </p>
+          </Link>
+        </div>
       </main>
-    </div>
+    </>
   )
 }
