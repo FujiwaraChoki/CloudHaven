@@ -1,24 +1,14 @@
 const path = require("path");
 
 module.exports = {
-  images: {
-    domains: ["localhost"],
-    unoptimized: true,
-  },
-    entry: "./src/app.js",
-    output: {
-        path: path.join(__dirname, 'public'),
-        filename: 'bundle.js'
+    images: {
+        domains: ["localhost"],
+        unoptimized: true,
     },
-    module:{
-        rules:[{
-            loader: 'babel-loader',
-            test: /\.js|\.jsx$/,
-            exclude: /node_modules/
-        }]
-    },
-    devtool: 'cheap-module-eval-source-map',
-    devServer: {
-        contentBase: path.join(__dirname, 'public')
+    distDir: "build",
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+        config.resolve.alias["components"] = path.join(__dirname, "components");
+        config.resolve.alias["styles"] = path.join(__dirname, "styles");
+        return config;
     }
 }
