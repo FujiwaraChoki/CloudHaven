@@ -1,10 +1,6 @@
 const path = require("path");
 
 module.exports = {
-  images: {
-    domains: ["localhost"],
-    unoptimized: true,
-  },
     entry: "./src/app.js",
     output: {
         path: path.join(__dirname, 'public'),
