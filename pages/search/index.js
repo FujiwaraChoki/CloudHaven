@@ -84,7 +84,7 @@ const SearchPage = ({ files }) => {
 } 
 
 export async function getStaticProps() {
-    const response = await fetch('http://localhost:5000/files');
+    const response = await fetch('http://10.0.0.198:9522/files');
     const data = await response.json();
     const files = data.files;
 
