@@ -28,3 +28,24 @@
 .uploadArea input[type="file"] {
     display: none;
 }
+
+.linkToDownload {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    color: #0077cc;
+}
+
+.linkToDownload:hover {
+    text-decoration: none;
+}
+
+.linkToDownload:hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0077cc;
+}

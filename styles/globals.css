@@ -123,3 +123,19 @@ button {
 button:hover {
   background-color: #3e8e41;
 }
+
+input[type="text"] {
+  width: 300px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 16px;
+  transition: all 0.1s ease-in;
+  margin: 10px 10px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #20aaff;
+}

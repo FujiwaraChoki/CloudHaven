@@ -1,13 +1,17 @@
 import { useState } from "react";
-import styles from "@/styles/UploadForm.module.css";
 import { Inter } from "@next/font/google";
-import Modal from '@/components/Modal'
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
+import styles from "@/styles/UploadForm.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 function UploadForm() {
     const [file, setFile] = useState(null);
     const [link, setLink] = useState("");
+    const [open, setOpen] = useState(false);
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
 
     const handleFileChange = (event) => {
         console.log("File change");
@@ -26,6 +30,10 @@ function UploadForm() {
         });
     }
 
+    const urlifyFileName = (fileName) => {
+        return fileName.replace(/ /g, "_");
+    };
+
     const handleFileUpload = () => {
         if (file) {
             // Send file data to server
@@ -33,13 +41,14 @@ function UploadForm() {
                 fetch("http://localhost:5000/upload", {
                     method: "POST",
                     body: JSON.stringify({
-                        file_name: file.name,
+                        file_name: urlifyFileName(file.name),
                         file_content: fileContent,
                     }),
                 })
                     .then((res) => res.json())
                     .then((data) => {
                         setLink(data.link);
+                        onOpenModal();
                     });
             });
         }
@@ -75,7 +84,16 @@ function UploadForm() {
                 <input type="file" onChange={handleFileChange} />
             </div>
             <button onClick={handleFileUpload}>Upload</button>
-            {link && <Modal link={link} />}
+            {link && (
+            <Modal open={open} onClose={onCloseModal} center>
+                <h2 className={inter.className}>Successfully uploaded File</h2>
+                <p className={inter.className}>
+                    <br />
+                    Your file has been successfully uploaded, here is the link:<br />
+                    <a href={link} className={styles.linkToDownload}>{link}</a>
+                </p>
+            </Modal>
+            )}
         </div>
     );
 }

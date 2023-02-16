@@ -1,0 +1,23 @@
+.card {
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+    )
+        rgb(var(--background-start-rgb));
+    border: 1px solid rgb(var(--card-border-rgb));
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0 1px rgb(var(--card-border-rgb)),
+        0 0 0 2px rgb(var(--card-rgb));
+    color: rgb(var(--foreground-rgb));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    position: relative;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.cardTitle {
+    margin-bottom: 0.5rem;
+}
