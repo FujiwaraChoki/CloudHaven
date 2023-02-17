@@ -84,19 +84,26 @@ const SearchPage = ({ files }) => {
     )
 }
 
-export async function getStaticProps() {
-    const files = await fetch('/api/search', {
+export function getStaticProps() {
+    fetch('/api/search', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
     }).then((res) => res.json())
-        .then((data) => data.files)
+        .then((data) => () => {
+            const files = data.files;
+            return {
+                props: {
+                    files,
+                },
+            };
+        })
         .catch((err) => console.log(err));
 
     return {
         props: {
-            files,
+            files: null,
         },
     };
 }
