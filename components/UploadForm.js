@@ -34,7 +34,7 @@ function UploadForm() {
         return file_name.replace(/ /g, "_");
     };
 
-    const handleFileUpload = () => {
+    const handleFileUpload = () => { 
         if (file) {
             console.table(file);
             // Send file data to server
