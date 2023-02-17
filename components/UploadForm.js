@@ -30,19 +30,31 @@ function UploadForm() {
         });
     }
 
-    const urlifyFileName = (fileName) => {
-        return fileName.replace(/ /g, "_");
+    const urlifyFileName = (file_name) => {
+        return file_name.replace(/ /g, "_");
     };
 
     const handleFileUpload = () => {
         if (file) {
+            console.table(file);
             // Send file data to server
-            getFileContent(file).then((fileContent) => {
-                fetch("http://172.18.0.59:9522/upload", {
+            getFileContent(file).then((content) => {
+                console.log("Name: " + urlifyFileName(file.name));
+                console.log("Creation date: " + file.lastModifiedDate);
+                console.log("Size: " + file.size);
+                console.log("Type: " + file.type);
+                fetch("http://localhost:3000/api/upload", {
                     method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({
-                        file_name: urlifyFileName(file.name),
-                        file_content: fileContent,
+                        name: urlifyFileName(file.name),
+                        content: content,
+                        creation_date: file.lastModifiedDate,
+                        size: file.size,
+                        type: file.type,
+                        link: `https://cloud-haven.vercel.app/download?file_name=${file.name}`,
                     }),
                 })
                     .then((res) => res.json())
@@ -75,7 +87,7 @@ function UploadForm() {
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 onClick={() =>
-                    document.querySelector("input[type=file]").click()
+                    document.querySelector("input[type='file']").click()
                 }
             >
                 <p className={inter.className}>
@@ -85,14 +97,14 @@ function UploadForm() {
             </div>
             <button onClick={handleFileUpload}>Upload</button>
             {link && (
-            <Modal open={open} onClose={onCloseModal} center>
-                <h2 className={inter.className}>Successfully uploaded File</h2>
-                <p className={inter.className}>
-                    <br />
-                    Your file has been successfully uploaded, here is the link:<br />
-                    <a href={link} className={styles.linkToDownload}>{link}</a>
-                </p>
-            </Modal>
+                <Modal open={open} onClose={onCloseModal} center>
+                    <h2 className={inter.className}>Successfully uploaded File</h2>
+                    <p className={inter.className}>
+                        <br />
+                        Your file has been successfully uploaded, you can access it with the following link:<br />
+                        <a href={link} className={styles.linkToDownload}>{link}</a>
+                    </p>
+                </Modal>
             )}
         </div>
     );

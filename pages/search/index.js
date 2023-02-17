@@ -73,7 +73,7 @@ const SearchPage = ({ files }) => {
 
                 {files ? (
                     files.map((file) => (
-                        <File file={file} key={file.id} />
+                        <File file={file} link={file.link} key={file.name} />
                     ))
                 ) : (
                     <div>Loading...</div>
@@ -81,12 +81,19 @@ const SearchPage = ({ files }) => {
             </main>
         </>
     )
-} 
+}
 
 export async function getStaticProps() {
-    const response = await fetch('http://172.18.0.59:9522/files');
-    const data = await response.json();
-    const files = data.files;
+    const files = await fetch('http://localhost:3000/api/search', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json())
+        .then((data) => data.files)
+        .catch((err) => console.log(err));
+
+    console.log(files)
 
     return {
         props: {
