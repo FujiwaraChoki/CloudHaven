@@ -3,5 +3,4 @@ module.exports = {
         domains: ["localhost"],
         unoptimized: true,
     },
-    distDir: "build",
 }
