@@ -70,14 +70,15 @@ const SearchPage = ({ files }) => {
                         </form>
                     </div>
                 </div>
-
-                {files ? (
-                    files.map((file) => (
-                        <File file={file} link={file.link} key={file.name} />
-                    ))
-                ) : (
-                    <div>Loading...</div>
-                )}
+                <div className={styles.files}>
+                    {files ? (
+                        files.map((file) => (
+                            <File file={file} link={file.link} key={file.name} />
+                        ))
+                    ) : (
+                        <div>Loading...</div>
+                    )}
+                </div>
             </main>
         </>
     )
@@ -92,8 +93,6 @@ export async function getStaticProps() {
     }).then((res) => res.json())
         .then((data) => data.files)
         .catch((err) => console.log(err));
-
-    console.log(files)
 
     return {
         props: {

@@ -54,7 +54,6 @@ function UploadForm() {
                         creation_date: file.lastModifiedDate,
                         size: file.size,
                         type: file.type,
-                        link: `https://cloud-haven.vercel.app/download?file_name=${file.name}`,
                     }),
                 })
                     .then((res) => res.json())

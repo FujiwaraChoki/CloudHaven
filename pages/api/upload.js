@@ -15,9 +15,10 @@ const handler = async (req, res) => {
         creation_date: creation_date,
         size: size,
         type: type,
+        link: `https://cloud-haven.vercel.app/download?file_name=${name}`,
     });
 
-    console.log(`Uploaded file ${name} to database.`)
+    console.log(`Uploaded file ${name} to MongoDB.`)
 
     res.status(200).json({
         success: true,
