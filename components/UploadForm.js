@@ -39,11 +39,7 @@ function UploadForm() {
             console.table(file);
             // Send file data to server
             getFileContent(file).then((content) => {
-                console.log("Name: " + urlifyFileName(file.name));
-                console.log("Creation date: " + file.lastModifiedDate);
-                console.log("Size: " + file.size);
-                console.log("Type: " + file.type);
-                fetch("http://localhost:3000/api/upload", {
+                fetch("/api/upload", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
