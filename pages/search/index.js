@@ -85,7 +85,7 @@ const SearchPage = ({ files }) => {
 }
 
 export function getStaticProps() {
-    fetch(`https://${process.env.VERCEL_URL}/api/search`, {
+    fetch(`https://cloud-haven.vercel.app/api/search`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

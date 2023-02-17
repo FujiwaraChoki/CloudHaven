@@ -39,7 +39,7 @@ function UploadForm() {
             console.table(file);
             // Send file data to server
             getFileContent(file).then((content) => {
-                fetch(`https://${process.env.VERCEL_URL}/api/upload`, {
+                fetch(`https://cloud-haven.vercel.app/api/upload`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
