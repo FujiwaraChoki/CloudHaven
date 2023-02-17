@@ -85,7 +85,7 @@ const SearchPage = ({ files }) => {
 }
 
 export function getStaticProps() {
-    fetch('http://localhost:3000/api/search', {
+    fetch(`https://${process.env.VERCEL_URL}/api/search`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
