@@ -85,7 +85,7 @@ const SearchPage = ({ files }) => {
 }
 
 export function getStaticProps() {
-    fetch('/api/search', {
+    fetch('http://localhost:3000/api/search', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
