@@ -3,10 +3,21 @@ import Link from 'next/link'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import File from '@/components/File'
+import { useEffect } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const SearchPage = ({ files }) => {
+
+    useEffect(() => {
+        const threeDotsLoading = document.getElementById('three-dots');
+        let dots = 0;
+        setInterval(() => {
+            dots = (dots + 1) % 4;
+            threeDotsLoading.innerHTML = '.'.repeat(dots);
+        }, 500);
+    }, []);
+
     return (
         <>
             <Head>
@@ -76,7 +87,7 @@ const SearchPage = ({ files }) => {
                             <File file={file} link={file.link} key={file.name} />
                         ))
                     ) : (
-                        <div>Loading...</div>
+                        <div className={inter.className}>Loading<span id="three-dots">...</span></div>
                     )}
                 </div>
             </main>
@@ -93,6 +104,8 @@ export function getStaticProps() {
     }).then((res) => res.json())
         .then((data) => () => {
             const files = data.files;
+
+            console.table(files);
             return {
                 props: {
                     files,
